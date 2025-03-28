@@ -9,10 +9,9 @@ export default function LoginScreen() {
 
     useEffect(() => {
         navigation.setOptions({
-            headerShown:false
+            headerShown: false
         })
-    }, []
-    );
+    }, [navigation]);
 
     return (
         <View
