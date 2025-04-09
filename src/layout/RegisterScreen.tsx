@@ -1,7 +1,59 @@
 import { useEffect, useState } from "react";
 import { Text, View, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import { supabase } from "../supabaseClient";
+
+
+
 export default function RegisterScreen({ onClose }: any) {
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [fullname, setFullname] = useState("");
+    const [mobilePhone, setMobilePhone] = useState("");
+
+
+    const [loading, setLoading] = useState(false)
+    const [errorMessage, setErrorMessage] = useState("")
+
+    const handleRegister = async () => {
+        setLoading(true)
+
+
+        const { data, error } = await supabase.auth.signUp({
+            email, password
+        })
+
+        if (error) {
+            setErrorMessage("")
+            setLoading(false)
+            return;
+        }
+
+
+
+        const { error: InsertError } = await supabase.from("users").insert([
+            {
+                email: email,
+                password: password,
+                fullname: fullname,
+                mobile_phone: mobilePhone
+            }
+        ])
+
+        setLoading(false)
+        if (InsertError) {
+            setErrorMessage(InsertError.message)
+        } else {
+            alert("User has been created")
+            onClose();
+        }
+
+
+    }
+
+    // Insert data into supabase table
+
+
     return (
         <View style={styles.container}>
             <Text>
