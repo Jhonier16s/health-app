@@ -1,67 +1,59 @@
-import { useEffect, useState } from "react";
-import { Text, View, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import { supabase } from "../supabaseClient";
 
-
-
 export default function RegisterScreen({ onClose }: any) {
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [fullname, setFullname] = useState("");
-    const [mobilePhone, setMobilePhone] = useState("");
-
-
-    const [loading, setLoading] = useState(false)
-    const [errorMessage, setErrorMessage] = useState("")
-
+    const [fullname, setFullName] = useState("");
+    const [mobilephone, setMobilePhone] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("");
+    
     const handleRegister = async () => {
-        setLoading(true)
-
+        setLoading(true);
+        setErrorMessage("");
 
         const { data, error } = await supabase.auth.signUp({
-            email, password
-        })
+            email, 
+            password
+        });
 
-        if (error) {
-            setErrorMessage("")
-            setLoading(false)
+        if(error) {
+            setErrorMessage(error.message);
+            setLoading(false);
             return;
         }
 
-
-
+        //Insert data into Supabase table
         const { error: InsertError } = await supabase.from("users").insert([
-            {
-                email: email,
+            { 
+                email: email, 
                 password: password,
                 fullname: fullname,
-                mobile_phone: mobilePhone
+                mobile_phone: mobilephone
             }
-        ])
+        ]);
 
-        setLoading(false)
+        setLoading(false);
         if (InsertError) {
-            setErrorMessage(InsertError.message)
+            setErrorMessage(InsertError.message);
         } else {
-            alert("User has been created")
+            alert("User has been created successfully");
             onClose();
         }
-
-
     }
-
-    // Insert data into supabase table
-
 
     return (
         <View style={styles.container}>
-            <Text>
-                Sign up
-            </Text>
+            <Text style={styles.title}>Sign up</Text>
             <TextInput
                 style={styles.input}
                 placeholder="admin@mail.com"
+            />
+            <TextInput
+                style={styles.input}
+                placeholder="*********"
             />
             <TextInput
                 style={styles.input}
@@ -69,23 +61,17 @@ export default function RegisterScreen({ onClose }: any) {
             />
             <TextInput
                 style={styles.input}
-                placeholder="(+57) 00000000000"
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="*********"
+                placeholder="(+57) 000000000"
             />
             <TouchableOpacity style={styles.button}>
                 <Text style={styles.buttonText}>Register</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={onClose}>
-                <Text style={styles.link}>Login</Text>
+                <Text style={styles.link}>Back to login</Text>
             </TouchableOpacity>
-
         </View>
-    )
+    );
 }
-
 
 const styles = StyleSheet.create({
     container: {
@@ -125,5 +111,6 @@ const styles = StyleSheet.create({
         marginTop: 10,
         color: "blue",
         textDecorationLine: "underline"
-    }
+    },
 });
+
