@@ -2,16 +2,16 @@ import { useNavigation } from "expo-router";
 import { View, Text, TextInput, StyleSheet, Alert, TouchableOpacity } from "react-native";
 import { useEffect, useState } from "react";
 import RegisterScreen from "./RegisterScreen";
+import MainScreen from "./MainScreen";
 
 
 export default function LoginScreen() {
 
     // const  [email, setEmail] = useState();    
     const [showRegister, setShowRegister] = useState(false);
+    const [showMain, setShowMain] = useState(false);
 
     const navigation = useNavigation();
-
-    
 
     useEffect(() => {
         navigation.setOptions({
@@ -19,8 +19,11 @@ export default function LoginScreen() {
         })
     }, [navigation]);
 
-    if (showRegister){
-        return <RegisterScreen onClose={()=>setShowRegister(false)}/> 
+    if (showRegister) {
+        return <RegisterScreen onClose={() => setShowRegister(false)} />
+    }
+    if (showMain) {
+        return <MainScreen />
     }
 
     return (
@@ -35,10 +38,14 @@ export default function LoginScreen() {
                 style={styles.input}
                 secureTextEntry
                 placeholder="********" />
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button}
+                onPress={()=>{
+                  setShowMain(true)  
+                }}
+            >
                 <Text style={styles.buttonText}>Login</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={()=>{
+            <TouchableOpacity onPress={() => {
                 setShowRegister(true)
             }}>
                 <Text style={styles.link}>Sign up</Text>
@@ -81,7 +88,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: "bold"
     },
-    link:{
+    link: {
         marginTop: 10,
         color: "blue",
         textDecorationLine: "underline"
