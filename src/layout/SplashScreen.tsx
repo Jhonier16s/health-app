@@ -17,7 +17,7 @@ export default function SplashScreen() {
     useEffect(() => {
         const timer = setTimeout(() => {
             setShowLogin(true);
-        }, 3000);
+        }, 2000);
         return () => clearTimeout(timer);
     }, []);
 
