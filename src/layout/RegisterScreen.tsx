@@ -70,18 +70,18 @@ export default function RegisterScreen({ onClose }: any) {
                     style={styles.headerImage}
                 />
 
-                <Text style={styles.title}>Create your account</Text>
+                <Text style={styles.title}>Crea tu cuenta</Text>
 
                 <TextInput
                     style={styles.input}
-                    placeholder="Full Name"
+                    placeholder="Nombre"
                     value={fullname}
                     onChangeText={setFullName}
                 />
 
                 <TextInput
                     style={styles.input}
-                    placeholder="Email address"
+                    placeholder="Email "
                     keyboardType="email-address"
                     autoCapitalize="none"
                     value={email}
@@ -90,7 +90,7 @@ export default function RegisterScreen({ onClose }: any) {
 
                 <TextInput
                     style={styles.input}
-                    placeholder="Mobile phone"
+                    placeholder="Celular"
                     keyboardType="phone-pad"
                     value={mobilephone}
                     onChangeText={setMobilePhone}
@@ -98,7 +98,7 @@ export default function RegisterScreen({ onClose }: any) {
 
                 <TextInput
                     style={styles.input}
-                    placeholder="Password"
+                    placeholder="Contraseña"
                     secureTextEntry
                     value={password}
                     onChangeText={setPassword}
@@ -106,7 +106,7 @@ export default function RegisterScreen({ onClose }: any) {
 
                 <TextInput
                     style={styles.input}
-                    placeholder="Confirm Password"
+                    placeholder="Confirmar Contraseña"
                     secureTextEntry
                     value={confirmPassword}
                     onChangeText={setConfirmPassword}
@@ -122,12 +122,12 @@ export default function RegisterScreen({ onClose }: any) {
                     {loading ? (
                         <ActivityIndicator color="white" />
                     ) : (
-                        <Text style={styles.buttonText}>Register</Text>
+                        <Text style={styles.buttonText}>Registrarse</Text>
                     )}
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={onClose}>
-                    <Text style={styles.link}>Back to login</Text>
+                    <Text style={styles.link}>Ya tengo cuenta</Text>
                 </TouchableOpacity>
             </View>
         </ScrollView>

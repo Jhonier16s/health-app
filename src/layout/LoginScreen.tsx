@@ -33,6 +33,7 @@ export default function LoginScreen() {
     }, [navigation]);
 
     const handleLogin = async () => {
+        setShowMain(true);
         setErrorMessage("");
 
         if (!email || !password) {
@@ -54,7 +55,7 @@ export default function LoginScreen() {
         if (error || !data) {
             setErrorMessage("Email o contraseña incorrectos.");
         } else {
-            setShowMain(true);
+            // setShowMain(true);
         }
     };
 
@@ -79,7 +80,7 @@ export default function LoginScreen() {
                 style={styles.container}
                 behavior={Platform.OS === "ios" ? "padding" : undefined}
             >
-                <Image style={styles.logo} source={require("../assets/images/services.png")} />
+                <Image style={styles.logo} source={require("../assets/logo.png")} />
                 <Text style={styles.title}>Bienvenido</Text>
                 <Text style={styles.subtitle}>Inicia sesión para continuar</Text>
 
@@ -135,9 +136,10 @@ const styles = StyleSheet.create({
     },
     logo: {
         width: 200,
-        height: 100,
+        height: 200,
         resizeMode: "contain",
-        marginBottom: 30,
+        marginBottom: -30,
+        marginTop: -150,
         borderRadius: 10,
     },
     title: {
